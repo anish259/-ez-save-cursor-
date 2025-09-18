@@ -11,6 +11,11 @@ const PORT = process.env.PORT || 3000;
 // Serve static files from workspace root
 app.use(express.static(path.join(__dirname)));
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Helper: spawn a process and collect output
 function spawnProcess(command, args, options = {}) {
   return new Promise((resolve, reject) => {
